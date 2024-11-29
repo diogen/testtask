@@ -1,2 +1,5 @@
 .idea
-app.php
+vendor
+app_old.php
+composer*
+*cache*
