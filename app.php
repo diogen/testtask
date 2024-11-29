@@ -11,13 +11,13 @@ foreach (explode("\n", file_get_contents($argv[1])) as $row) {
     $p2 = explode(':', $p[2]);
     $value[2] = trim($p2[1], '"}');
 
-    $binResults = file_get_contents('https://lookup.binlist.net/' .$value[0]);
+    $binResults = file_get_contents('https://api.bintable.com/v1/' . mb_substr($value[0],0, 6) . '?api_key=fa22db7b679c21ac42ae75dfc2afb60ddd025e28');
     if (!$binResults)
         die('error!');
     $r = json_decode($binResults);
-    $isEu = isEu($r->country->alpha2);
+    $isEu = isEu(strtoupper($r->data->country->code));
 
-    $rate = @json_decode(file_get_contents('https://api.exchangeratesapi.io/latest'), true)['rates'][$value[2]];
+    $rate = @json_decode(file_get_contents('http://data.fixer.io/api/latest?access_key=9a0a4bd346300338b3eb8909c68fa2ed'), true)['rates'][$value[2]];
     if ($value[2] == 'EUR' or $rate == 0) {
         $amntFixed = $value[1];
     }
