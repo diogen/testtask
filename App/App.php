@@ -4,6 +4,13 @@ namespace App;
 
 class App
 {
+    private CommissionCalculator $calculator;
+
+    public function __construct(CommissionCalculator $calculator)
+    {
+        $this->calculator = $calculator;
+    }
+
     public function run(string $inputFile): void
     {
         try {
@@ -30,7 +37,7 @@ class App
 
     private function processTransactions(array $transactions): array
     {
-
+        return [];
     }
 
     private function outputResults(array $results): void
