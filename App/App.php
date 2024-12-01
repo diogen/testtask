@@ -37,7 +37,7 @@ class App
 
     private function processTransactions(array $transactions): array
     {
-        return [];
+        return $this->calculator->calculate($transactions);
     }
 
     private function outputResults(array $results): void

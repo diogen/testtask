@@ -4,9 +4,18 @@ require 'vendor/autoload.php';
 
 use App\App;
 use App\CommissionCalculator;
+use App\CountryChecker;
+use GuzzleHttp\Client;
 
 try {
-    $calculator = new CommissionCalculator();
+    // Load environment variables
+    $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/');
+    $dotenv->load();
+
+    //dependencies
+    $httpClient = new Client();
+    $countryChecker = new CountryChecker();
+    $calculator = new CommissionCalculator($httpClient, $countryChecker);
 
     $inputFile = $argv[1] ?? null;
     $app = new App($calculator);
